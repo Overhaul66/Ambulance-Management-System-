@@ -61,6 +61,7 @@ class UserCreateAPIView(APIView):
                     info = send_token(user, method="Email")
                 else:
                     info = send_token(user, method="SMS")
+                print(info)
             except Exception as e:
                 return Response({"error": f"Token generation failed: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
@@ -92,8 +93,9 @@ class LoginView(APIView):
             # get jwt token
                 refresh = RefreshToken.for_user(user)
                 return Response({'details': {
-                                "Message": "Login successful",
-                                },
+                                            "Message": "Login successful",
+                                            },
+                                 "user_role" : user.role,
                                  "access" : str(refresh.access_token),
                                  "refresh" : str(refresh)
                                 }, status=status.HTTP_200_OK)

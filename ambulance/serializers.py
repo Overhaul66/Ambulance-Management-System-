@@ -5,7 +5,7 @@ class AmbulanceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ambulance
-        fields = ['driver', 'status', 'number', 'lonngitude', 'latitude']
+        fields = ['driver', 'status', 'number', 'longitude', 'latitude']
 
 class AmbulanceRequestSerializer(serializers.ModelSerializer):
     class Meta:

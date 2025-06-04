@@ -18,6 +18,8 @@ class RequestRideView(APIView):
             serializer = AmbulanceRequestSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save(user=request.user)  # Assuming the user is authenticated
+                # finds an ambulance close to your location
+                # send notification to driver
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
