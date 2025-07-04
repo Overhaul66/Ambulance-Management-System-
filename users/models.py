@@ -18,15 +18,14 @@ class CustomUser(AbstractUser):
     phone_number = PhoneNumberField(null=True, blank=True, unique=True, verbose_name="phone number")
     email_verified = models.BooleanField(default=False)
     phone_verified = models.BooleanField(default=False)
-    role = models.CharField(max_length=10, choices=[
+    role = models.CharField(max_length=100, choices=[
         ("Individual", "individual"),
         ("Driver", "driver"),
-        ("Admin", "admin"),
-        ("Nurse", "nurse"),
-        ("Doctor", "doctor"),
-        ("Org_Admin", "org_admin")
+        ("HealthAdmin", "health_admin"),
+        ("DriverAdmin", "driver_admin"),
+        ("Doctor", "doctor")
     ])
-
+    organization = models.ForeignKey("Organization", models.CASCADE, null=True, blank=True)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -49,6 +48,8 @@ class CustomUser(AbstractUser):
                 name="user_has_email_or_phone"
             )
         ]
+
+        
 
 import pyotp
         
@@ -99,18 +100,27 @@ class OTPVerification(models.Model):
                 return otp
         
         return None
-      
-class HealthWorkerProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    # organization
 
-class IndividualProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-
-class DriverProfile(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    
 class Organization(models.Model):
     org_name = models.CharField(max_length=255, null=False, blank=False)
     address = models.CharField(max_length=255, null=False, blank=False)
+
+    def __str__(self):
+        return f"{self.org_name}"
+
+class HealthWorkerProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+    organizaton = models.ForeignKey(Organization, on_delete=models.CASCADE)
+
+# class IndividualProfile(models.Model):
+#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+# class DriverProfile(models.Model):
+#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+
+# class OrgAdminProfile(models.Model):
+#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+#     organization = models.ForeignKey(Organization, on_delete=models.CASCADE)
+    
+
 

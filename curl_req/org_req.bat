@@ -1,0 +1,7 @@
+@echo off
+set TOKEN=YOUR_JWT_TOKEN
+
+curl -X GET http://localhost:8000/users/organization/ ^
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUxNjMyNDY1LCJpYXQiOjE3NTE2Mjg4NjUsImp0aSI6ImZhYjU2MzhjNTU0YjRhYWRiNjRmY2Q3MjgzNWRkOTA4IiwidXNlcl9pZCI6Mjl9.0OxGacdGhCzRjCkF18d2fCwBGKO5MUbySnPhqj_Fgjo"
+
+pause

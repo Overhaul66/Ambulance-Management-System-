@@ -1,15 +1,11 @@
 from django.db import models
-from users.models import (
-    IndividualProfile,
-    HealthWorkerProfile,
-    CustomUser,
-    DriverProfile
-)
+from users.models import CustomUser
+
 
 # Create your models here.
 
 class Ambulance(models.Model):
-    driver = models.ForeignKey(DriverProfile, on_delete=models.CASCADE)
+    driver = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     number = models.PositiveBigIntegerField(verbose_name="ambulance number plate", unique=True, blank=False, null=False)
     status = models.CharField(max_length=50, 
         choices=(
@@ -34,7 +30,7 @@ class AmbulanceRequest(models.Model):
     longitude = models.FloatField(null=True, blank=True)
 
 class Notification(models.Model):
-    creator = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notifcations_sent")
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notifcations_sent")
     receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notifications_recieved")
     date = models.DateTimeField(auto_now=True)
     content = models.CharField(max_length=1000)

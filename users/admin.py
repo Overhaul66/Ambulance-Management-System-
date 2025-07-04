@@ -1,7 +1,7 @@
 # users/admin.py
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, OTPVerification, IndividualProfile, HealthWorkerProfile, DriverProfile
+from .models import CustomUser, OTPVerification, Organization
 from django.contrib.auth.models import Permission
 
 # class CustomUserAdmin(UserAdmin):
@@ -28,4 +28,4 @@ from django.contrib.auth.models import Permission
 #         super().save_model(request, obj, form, change)
 
 # Register the custom user model with the admin site
-admin.site.register([CustomUser,OTPVerification,HealthWorkerProfile,IndividualProfile,Permission, DriverProfile])
+admin.site.register([CustomUser,OTPVerification,Permission, Organization])
