@@ -9,11 +9,11 @@ class Ambulance(models.Model):
     number = models.PositiveBigIntegerField(verbose_name="ambulance number plate", unique=True, blank=False, null=False)
     status = models.CharField(max_length=50, 
         choices=(
-            ("Available", "available"),
-            ("Unavailable", "unavailable"),
-            ("Busy", "busy"),
-            ("Arrived", "arrived"),
-            ("On-Route", "on-route")
+                ("Emergency", "Emergency"),     # Life-threatening, immediate response
+                ("Urgent", "Urgent"),           # Serious but not immediately life-threatening
+                ("Non-Urgent", "Non-Urgent"),   # Stable condition, needs transport
+                ("Routine", "Routine"),         # Scheduled or planned (e.g. hospital transfers)
+                ("Low", "Low"),                 # Minor issues or consultations
         )
     )
     latitude = models.FloatField(null=True, blank=True)
@@ -29,8 +29,3 @@ class AmbulanceRequest(models.Model):
     latitude = models.FloatField(null=True, blank=True)
     longitude = models.FloatField(null=True, blank=True)
 
-class Notification(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notifcations_sent")
-    receiver = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="notifications_recieved")
-    date = models.DateTimeField(auto_now=True)
-    content = models.CharField(max_length=1000)

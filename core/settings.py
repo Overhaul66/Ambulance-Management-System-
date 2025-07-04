@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'rest_framework',
-    
+    'daphne',
+    'notification',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -165,3 +166,14 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+
+# Daphne
+# sets default routing to dapne
+ASGI_APPLICATION = "core.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",  # good for dev
+    },
+}

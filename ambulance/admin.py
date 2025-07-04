@@ -6,6 +6,5 @@ from . import models
 admin.site.register(
     [
         models.Ambulance, 
-        models.AmbulanceRequest,
-        models.Notification, 
+        models.AmbulanceRequest, 
     ])
